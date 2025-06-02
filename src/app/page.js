@@ -109,7 +109,7 @@ export default function Home() {
               </TableBody>
             </Table>
           </div>
-          <div className="">
+          <div className="mb-10">
             <Table className="w-3/4">
               <TableBody>
                 <TableRow>
