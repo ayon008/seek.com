@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Input } from "@/Components/ui/input"
 import { Label } from "@/Components/ui/label"
 import { Button } from '../ui/button';
@@ -9,33 +9,49 @@ import { montserrat } from '../Fonts/Montserrat';
 const Search = () => {
     const [open, setOpen] = useState(false);
     const [dropdown, setDropDown] = useState(false)
+    const dropdownRef = useRef(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setDropDown(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     const work_types = [
         'Full Time', 'Part Time', 'Contract/Temp', 'Casual/Vacation'
     ]
 
-    const Dropdown = ({ children }) => {
+    const Dropdown = ({ children, list }) => {
         return (
             <div className='relative'>
                 <div onClick={() => setDropDown(true)}>
                     {children}
                 </div>
-                {
-                    dropdown && <div className='w-96 bg-white shadow-2xl absolute bottom z-50 mt-2 rounded-3xl'>
-                        <form className='p-6'>
-                            {
-                                work_types.map((work, i) => {
-                                    return (
-                                        <div className='flex items-center gap-4'>
-                                            <input type='checkbox' id={`work-${i}`} name={work} value={work} />
-                                            <label className={`${montserrat.className} `} for={`work-${i}`}>{work}</label><br></br>
-                                        </div>
-                                    )
-                                })
-                            }
-                        </form>
-                    </div>
-                }
+                <div ref={dropdownRef}>
+                    {
+                        dropdown && <div className='w-96 bg-white shadow-2xl absolute bottom z-50 mt-2 rounded-3xl'>
+                            <form className='p-6 flex flex-col gap-3'>
+                                {
+                                    list.map((work, i) => {
+                                        return (
+                                            <div key={i} className='flex items-center gap-4'>
+                                                <input type='checkbox' id={`work-${i}`} className='' name={work} value={work} /> 
+                                                <label className={`${montserrat.className} text-xl `} htmlFor={`work-${i}`}>{work}</label><br></br>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </form>
+                        </div>
+                    }
+                </div>
             </div>
         )
     }
@@ -61,7 +77,7 @@ const Search = () => {
                     {
                         !open ? <Button type="button" onClick={() => setOpen(true)} variant={''} className={'text-sm w-fit bg-transparent hover:bg-blend-color'} ><span>More Options</span> <Settings /></Button>
                             : <div className='px-6 flex flex-row items-center gap-3'>
-                                <Dropdown>
+                                <Dropdown list={work_types}>
                                     <Button variant={'outline'} className={`${montserrat.className} text-white border-2 border-white text-base font-light py-2 rounded-3xl`}><span>Work Type</span><ChevronDown /></Button>
                                 </Dropdown>
                                 <Button variant={'outline'} className={`${montserrat.className} text-white border-2 border-white text-base font-light py-2 rounded-3xl`}><span>Remote</span><ChevronDown /></Button>
