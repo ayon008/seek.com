@@ -50,7 +50,7 @@ const Footer = () => {
     ];
 
     return (
-        <div className='max-w-[1280px] px-6 flex justify-between items-start'>
+        <div className='max-w-[1280px] px-6 pb-10 flex justify-between items-start'>
             <div className='flex-1'>
                 <div className='flex flex-col justify-between gap-y-4'>
                     <h3 className='text-base font-semibold'>Job Seekers</h3>

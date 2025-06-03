@@ -36,7 +36,9 @@ const Navbar = () => {
                 {
                     user ? <></> :
                         <div className='flex items-center gap-6'>
-                            <PrimaryButton text={'Sign in'} />
+                            <Link href={'/login'} className='cursor-pointer'>
+                                <PrimaryButton text={'Sign in'} />
+                            </Link>
                             <Link href={'/employee_site'} className='text-secondary'>Employee Site</Link>
                         </div>
                 }

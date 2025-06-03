@@ -9,6 +9,8 @@ import { montserrat } from '../Fonts/Montserrat';
 const Search = () => {
     const [open, setOpen] = useState(false);
     const [dropdown, setDropDown] = useState(false)
+    const [selectedWorkTypes, setSelectedWorkTypes] = useState([]);
+
     const dropdownRef = useRef(null);
 
     useEffect(() => {
@@ -28,6 +30,16 @@ const Search = () => {
         'Full Time', 'Part Time', 'Contract/Temp', 'Casual/Vacation'
     ]
 
+    function getWorkTypeLabel(selectedWorkTypes) {
+        const len = selectedWorkTypes.length;
+        if (len === 1) return selectedWorkTypes[0];
+        if (len === 2) return '2 work types';
+        if (len === 3) return '3 work types';
+        if (len >3) return 'All Jobs';
+        return 'Work Type';
+    }
+
+
     const Dropdown = ({ children, list }) => {
         return (
             <div className='relative'>
@@ -41,9 +53,42 @@ const Search = () => {
                                 {
                                     list.map((work, i) => {
                                         return (
-                                            <div key={i} className='flex items-center gap-4'>
-                                                <input type='checkbox' id={`work-${i}`} className='' name={work} value={work} /> 
-                                                <label className={`${montserrat.className} text-xl `} htmlFor={`work-${i}`}>{work}</label><br></br>
+                                            <div key={i} className="flex items-center gap-4">
+                                                <label htmlFor={`work-${i}`} className="flex items-center cursor-pointer select-none gap-4">
+                                                    {/* Hidden checkbox */}
+                                                    <input
+                                                        type="checkbox"
+                                                        id={`work-${i}`}
+                                                        className="peer hidden"
+                                                        name={work}
+                                                        value={work}
+                                                        onChange={(e) => {
+                                                            if (e.target.checked) {
+                                                                setSelectedWorkTypes((prev) => [...prev, work]);
+                                                            } else {
+                                                                setSelectedWorkTypes((prev) => prev.filter((item) => item !== work));
+                                                            }
+                                                        }}
+                                                        checked={selectedWorkTypes.includes(work)}
+                                                    />
+
+                                                    {/* Custom checkbox box */}
+                                                    <div className="w-5 h-5 rounded border-2 border-gray-400 peer-checked:bg-primary peer-checked:border-primary flex items-center justify-center">
+                                                        {/* Tick icon shown only when checked */}
+                                                        <svg
+                                                            className="w-3 h-3 text-white hidden peer-checked:block"
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            fill="none"
+                                                            viewBox="0 0 24 24"
+                                                            stroke="currentColor"
+                                                        >
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
+                                                        </svg>
+                                                    </div>
+
+                                                    {/* Label text */}
+                                                    <span className={`${montserrat.className} text-xl`}>{work}</span>
+                                                </label>
                                             </div>
                                         )
                                     })
@@ -78,7 +123,7 @@ const Search = () => {
                         !open ? <Button type="button" onClick={() => setOpen(true)} variant={''} className={'text-sm w-fit bg-transparent hover:bg-blend-color'} ><span>More Options</span> <Settings /></Button>
                             : <div className='px-6 flex flex-row items-center gap-3'>
                                 <Dropdown list={work_types}>
-                                    <Button variant={'outline'} className={`${montserrat.className} text-white border-2 border-white text-base font-light py-2 rounded-3xl`}><span>Work Type</span><ChevronDown /></Button>
+                                    <Button variant={'outline'} className={`${montserrat.className} text-white border-2 border-white text-base font-light py-2 rounded-3xl`}><span>{getWorkTypeLabel(selectedWorkTypes)}</span><ChevronDown /></Button>
                                 </Dropdown>
                                 <Button variant={'outline'} className={`${montserrat.className} text-white border-2 border-white text-base font-light py-2 rounded-3xl`}><span>Remote</span><ChevronDown /></Button>
                                 <Button variant={'outline'} className={`${montserrat.className} text-white border-2 border-white text-base font-light py-2 rounded-3xl`}><span>Pay</span><ChevronDown /></Button>
