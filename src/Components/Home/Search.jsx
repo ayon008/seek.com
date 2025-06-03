@@ -8,6 +8,37 @@ import { montserrat } from '../Fonts/Montserrat';
 
 const Search = () => {
     const [open, setOpen] = useState(false);
+    const [dropdown, setDropDown] = useState(false)
+
+    const work_types = [
+        'Full Time', 'Part Time', 'Contract/Temp', 'Casual/Vacation'
+    ]
+
+    const Dropdown = ({ children }) => {
+        return (
+            <div className='relative'>
+                <div onClick={() => setDropDown(true)}>
+                    {children}
+                </div>
+                {
+                    dropdown && <div className='w-96 bg-white shadow-2xl absolute bottom z-50 mt-2 rounded-3xl'>
+                        <form className='p-6'>
+                            {
+                                work_types.map((work, i) => {
+                                    return (
+                                        <div className='flex items-center gap-4'>
+                                            <input type='checkbox' id={`work-${i}`} name={work} value={work} />
+                                            <label className={`${montserrat.className} `} for={`work-${i}`}>{work}</label><br></br>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </form>
+                    </div>
+                }
+            </div>
+        )
+    }
     return (
         <div className='bg-[#051A49] h-fit w-full pb-4'>
             <div className='max-w-[1280px] mx-auto'>
@@ -30,10 +61,13 @@ const Search = () => {
                     {
                         !open ? <Button type="button" onClick={() => setOpen(true)} variant={''} className={'text-sm w-fit bg-transparent hover:bg-blend-color'} ><span>More Options</span> <Settings /></Button>
                             : <div className='px-6 flex flex-row items-center gap-3'>
-                                <Button variant={'outline'} className={`${montserrat.className} text-white border-2 border-white text-base font-light py-2 rounded-3xl`}><span>Work Type</span><ChevronDown /></Button>
-                                <Button variant={'outline'} className={`${montserrat.className} text-white border-2 border-white text-base font-light py-2 rounded-3xl`}><span>Work Type</span><ChevronDown /></Button>
-                                <Button variant={'outline'} className={`${montserrat.className} text-white border-2 border-white text-base font-light py-2 rounded-3xl`}><span>Work Type</span><ChevronDown /></Button>
-                                <Button variant={'outline'} className={`${montserrat.className} text-white border-2 border-white text-base font-light py-2 rounded-3xl`}><span>Work Type</span><ChevronDown /></Button>
+                                <Dropdown>
+                                    <Button variant={'outline'} className={`${montserrat.className} text-white border-2 border-white text-base font-light py-2 rounded-3xl`}><span>Work Type</span><ChevronDown /></Button>
+                                </Dropdown>
+                                <Button variant={'outline'} className={`${montserrat.className} text-white border-2 border-white text-base font-light py-2 rounded-3xl`}><span>Remote</span><ChevronDown /></Button>
+                                <Button variant={'outline'} className={`${montserrat.className} text-white border-2 border-white text-base font-light py-2 rounded-3xl`}><span>Pay</span><ChevronDown /></Button>
+                                <Button variant={'outline'} className={`${montserrat.className} text-white border-2 border-white text-base font-light py-2 rounded-3xl`}><span>Classification</span><ChevronDown /></Button>
+                                <Button variant={'outline'} className={`${montserrat.className} text-white border-2 border-white text-base font-light py-2 rounded-3xl`}><span>Listing Time</span><ChevronDown /></Button>
                             </div>
                     }
                 </div>
