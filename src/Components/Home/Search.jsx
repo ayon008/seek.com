@@ -8,39 +8,46 @@ import { montserrat } from '../Fonts/Montserrat';
 
 const Search = () => {
     const [open, setOpen] = useState(false);
-    const [dropdown, setDropDown] = useState(false)
     const [selectedWorkTypes, setSelectedWorkTypes] = useState([]);
-
-    const dropdownRef = useRef(null);
-
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setDropDown(false);
-            }
-        };
-
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, []);
-
+    const [selectedJobTypes, setSelectedJobTypes] = useState([])
     const work_types = [
         'Full Time', 'Part Time', 'Contract/Temp', 'Casual/Vacation'
     ]
+
+    const job_location = ['On-site', 'Hybrid', 'Remote']
 
     function getWorkTypeLabel(selectedWorkTypes) {
         const len = selectedWorkTypes.length;
         if (len === 1) return selectedWorkTypes[0];
         if (len === 2) return '2 work types';
         if (len === 3) return '3 work types';
-        if (len >3) return 'All Jobs';
+        if (len > 3) return 'All Jobs';
         return 'Work Type';
     }
 
+    function getJobTypeLabel(selectedWorkTypes) {
+        const len = selectedWorkTypes.length;
+        if (len === 1) return selectedWorkTypes[0];
+        if (len === 2) return '2 Options';
+        return 'Remote';
+    }
 
-    const Dropdown = ({ children, list }) => {
+
+    const Dropdown = ({ children, list, fn }) => {
+        const [dropdown, setDropDown] = useState(false);
+        const dropdownRef = useRef(null);
+        useEffect(() => {
+            const handleClickOutside = (event) => {
+                if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                    setDropDown(false);
+                }
+            };
+
+            document.addEventListener('mousedown', handleClickOutside);
+            return () => {
+                document.removeEventListener('mousedown', handleClickOutside);
+            };
+        }, []);
         return (
             <div className='relative'>
                 <div onClick={() => setDropDown(true)}>
@@ -64,9 +71,9 @@ const Search = () => {
                                                         value={work}
                                                         onChange={(e) => {
                                                             if (e.target.checked) {
-                                                                setSelectedWorkTypes((prev) => [...prev, work]);
+                                                                fn((prev) => [...prev, work]);
                                                             } else {
-                                                                setSelectedWorkTypes((prev) => prev.filter((item) => item !== work));
+                                                                fn((prev) => prev.filter((item) => item !== work));
                                                             }
                                                         }}
                                                         checked={selectedWorkTypes.includes(work)}
@@ -122,10 +129,12 @@ const Search = () => {
                     {
                         !open ? <Button type="button" onClick={() => setOpen(true)} variant={''} className={'text-sm w-fit bg-transparent hover:bg-blend-color'} ><span>More Options</span> <Settings /></Button>
                             : <div className='px-6 flex flex-row items-center gap-3'>
-                                <Dropdown list={work_types}>
+                                <Dropdown list={work_types} fn={setSelectedWorkTypes}>
                                     <Button variant={'outline'} className={`${montserrat.className} text-white border-2 border-white text-base font-light py-2 rounded-3xl`}><span>{getWorkTypeLabel(selectedWorkTypes)}</span><ChevronDown /></Button>
                                 </Dropdown>
-                                <Button variant={'outline'} className={`${montserrat.className} text-white border-2 border-white text-base font-light py-2 rounded-3xl`}><span>Remote</span><ChevronDown /></Button>
+                                <Dropdown list={job_location} fn={setSelectedJobTypes}>
+                                    <Button variant={'outline'} className={`${montserrat.className} text-white border-2 border-white text-base font-light py-2 rounded-3xl`}><span>{getJobTypeLabel(selectedJobTypes)}</span><ChevronDown /></Button>
+                                </Dropdown>
                                 <Button variant={'outline'} className={`${montserrat.className} text-white border-2 border-white text-base font-light py-2 rounded-3xl`}><span>Pay</span><ChevronDown /></Button>
                                 <Button variant={'outline'} className={`${montserrat.className} text-white border-2 border-white text-base font-light py-2 rounded-3xl`}><span>Classification</span><ChevronDown /></Button>
                                 <Button variant={'outline'} className={`${montserrat.className} text-white border-2 border-white text-base font-light py-2 rounded-3xl`}><span>Listing Time</span><ChevronDown /></Button>
