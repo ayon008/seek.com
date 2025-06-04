@@ -90,7 +90,7 @@ const AllJobs = () => {
                     </SheetContent>
                 </Sheet>
             </div>
-            <div className='2xl:hidden xl:hidden block'>
+            <div className='2xl:hidden xl:hidden block spacey-3'>
                 {
                     Array.from({ length: 10 }, (_, i) => i).map((_, i) => <Link href={`/jobs/${i}`} key={i}><Job /></Link>)
                 }
