@@ -123,6 +123,10 @@ input {
   --primary: #2e3849;
 }
 
+
+
+
+
 /* 
 #radix-«r0»>button {
   @apply !cursor-pointer !bg-primary !p-4 
@@ -131,6 +135,7 @@ input {
 [data-slot="sheet-content"]>button:hover {
   @apply !cursor-pointer !bg-primary text-white !p-1 !rounded-full
 }
+
 [data-slot="sheet-content"]>button {
   @apply !cursor-pointer !p-1 !rounded-full
 }

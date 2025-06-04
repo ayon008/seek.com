@@ -79,6 +79,9 @@ const AllJobs = () => {
                                     <Button className={`bg-[#FD0585] text-lg ${montserrat.className} p-6`}>Quick Apply</Button>
                                     <Button className={`text-secondary bg-blue-100 hover:bg-blue-300 text-lg ${montserrat.className} p-6`}>Save</Button>
                                 </div>
+                                {/* <div>
+                                    <p className=''></p>
+                                </div> */}
                             </div>
                         </SheetDescription>
                     </SheetHeader>
