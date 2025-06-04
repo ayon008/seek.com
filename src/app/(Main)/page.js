@@ -1,5 +1,4 @@
 import { montserrat } from "@/Components/Fonts/Montserrat";
-import Job from "@/Components/Home/Job";
 import Search from "@/Components/Home/Search";
 import SearchHistory from "@/Components/Home/SearchHistory";
 import Logo from "@/Components/Icons/Logo/Logo";
@@ -12,6 +11,7 @@ import {
   TableCell,
   TableRow,
 } from "@/Components/ui/table"
+import AllJobs from "@/Components/Home/AllJobs";
 
 export default function Home() {
   const categories = [
@@ -55,11 +55,7 @@ export default function Home() {
               <Info />
             </div>
             {/* Jobs */}
-            <div className="mt-2 flex flex-col justify-between gap-3">
-              {
-                Array.from({ length: 10 }, (_, i) => i).map((_, i) => <Job key={i} />)
-              }
-            </div>
+            <AllJobs />
           </div>
           <div>
             <h2 className={`${montserrat.className} text-2xl text-primary`}>Saved searches</h2>

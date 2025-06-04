@@ -115,12 +115,24 @@ input::placeholder {
   @apply text-[#5a6881] text-xl
 }
 
-input{
+input {
   @apply text-xl
 }
 
 .primary {
   --primary: #2e3849;
+}
+
+/* 
+#radix-«r0»>button {
+  @apply !cursor-pointer !bg-primary !p-4 
+} */
+
+[data-slot="sheet-content"]>button:hover {
+  @apply !cursor-pointer !bg-primary text-white !p-1 !rounded-full
+}
+[data-slot="sheet-content"]>button {
+  @apply !cursor-pointer !p-1 !rounded-full
 }
 
 @layer base {
