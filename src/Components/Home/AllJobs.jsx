@@ -92,7 +92,7 @@ const AllJobs = () => {
             </div>
             <div className='2xl:hidden xl:hidden block'>
                 {
-                    Array.from({ length: 10 }, (_, i) => i).map((_, i) => <Link href={`/jobs/${i}`}><Job key={i} /></Link>)
+                    Array.from({ length: 10 }, (_, i) => i).map((_, i) => <Link href={`/jobs/${i}`} key={i}><Job /></Link>)
                 }
             </div>
         </>
