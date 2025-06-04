@@ -7,7 +7,7 @@ const SearchHistory = () => {
         'All Jobs', 'Wordpress Developer', 'Web developer'
     ]
     return (
-        <div className='flex items-center gap-3'>
+        <div className='flex items-center gap-3 overflow-x-auto'>
             {
                 history.map((his, i) => {
                     return (

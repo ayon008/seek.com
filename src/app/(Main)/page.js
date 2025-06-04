@@ -48,9 +48,9 @@ export default function Home() {
       <div className="p-6 max-w-[1280px] mx-auto">
         <SearchHistory />
         {/* Jobs */}
-        <div className="grid grid-cols-[3fr_2fr] gap-10 items-start mt-10">
+        <div className="grid 2xl:grid-cols-[3fr_2fr] xl:grid-cols-[3fr_2fr] grid-cols-1 gap-10 items-start mt-10">
           <div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 mb-2">
               <h1 className="font-semibold text-3xl">Recommended for you</h1>
               <Info />
             </div>
@@ -70,19 +70,19 @@ export default function Home() {
         </div>
         {/*  */}
         <div className="bg-[#E60278] flex items-start justify-between px-12 pt-24 pb-20 rounded-3xl my-20">
-          <div className="w-1/2">
+          <div className="2xl:w-1/2 xl:w-1/2 w-full">
             <h2 className="text-6xl font-bold text-white mb-5">Find the best job matches</h2>
             <div className="flex items-start gap-2 text-white">
               <Logo />
               <p className={`${montserrat.className} text-2xl mt-[2px]`}>and you shall find</p>
             </div>
           </div>
-          <div className="w-1/2">
+          <div className="2xl:w-1/2 xl:w-1/2 w-full">
 
           </div>
         </div>
         {/* Quick search */}
-        <div>
+        <div className="2xl:block xl:block hidden">
           <p className="font-semibold">Quick Search</p>
           <div className="mt-4">
             <Table className="w-3/4">

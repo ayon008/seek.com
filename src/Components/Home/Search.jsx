@@ -131,22 +131,22 @@ const Search = () => {
     return (
         <div className='bg-[#051A49] h-fit w-full pb-4'>
             <div className='max-w-[1280px] mx-auto'>
-                <form className='grid grid-cols-[3fr_2fr] gap-2  p-6'>
+                <form className='grid 2xl:grid-cols-[3fr_2fr] xl:grid-cols-[3fr_2fr] 2xl:grid-rows-1 xl:grid-rows-1 grid-rows-3 gap-2 p-6'>
                     <div>
                         <Label htmlFor="email" className={'text-white mb-4 text-xl'}>What</Label>
                         <Input className={'bg-white py-7 focus:ring-blue-400'} type="email" id="email" placeholder="Enter Keywords" />
                     </div>
-                    <div>
+                    <div className='2xl:row-span-1 xl:row-span-1 row-span-2'>
                         <div className='flex-1 h-full flex flex-col'>
                             <Label htmlFor="email" className={'text-white mb-4 text-xl'}>Where</Label>
-                            <div className='flex gap-2 items-end'>
+                            <div className='flex 2xl:flex-row xl:flex-row flex-col 2xl:gap-2 xl:gap-2 gap-7 2xl:items-end xl:items-end'>
                                 <Input className={'bg-white py-7'} type="email" id="email" placeholder="Enter suburb,region or city" />
-                                <Button variant={''} type="submit" onClick={() => setOpen(true)} className={'text-white bg-[#FD0585] hover:text-white text-xl uppercase px-6 h-full'}>Seek</Button>
+                                <Button variant={''} type="submit" onClick={() => setOpen(true)} className={'text-white bg-[#FD0585] hover:text-white text-xl uppercase px-6 2xl:h-full xl:h-full h-fit 2xl:py-0 xl:py-0 py-4'}>Seek</Button>
                             </div>
                         </div>
                     </div>
                 </form>
-                <div className={`${!open && 'ml-auto'} w-fit pr-2`}>
+                <div className={`${!open && 'ml-auto'} w-fit pr-2 2xl:block xl:block hidden`}>
                     {
                         !open ? <Button type="button" onClick={() => setOpen(true)} variant={''} className={'text-sm w-fit bg-transparent hover:bg-blend-color'} ><span>More Options</span> <Settings /></Button>
                             : <div className='px-6 flex flex-row items-center gap-3'>
